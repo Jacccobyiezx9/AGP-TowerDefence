@@ -64,11 +64,10 @@ public class Tower : MonoBehaviour
         if (enemy != null)
         {
             enemy.Hit(damage);
-            Debug.Log($"Laser dealt {damage} damage to {enemy.name}");
+            Debug.Log("Laser dealt" + damage + " to " + enemy.name);
         }
 
     }
-
 
     private void OnDrawGizmos()
     {
