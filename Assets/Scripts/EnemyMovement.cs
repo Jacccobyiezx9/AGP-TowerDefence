@@ -8,6 +8,8 @@ public class EnemyMovement : MonoBehaviour
     private int currentWaypointIndex = 0;
     public float moveSpeed;
 
+    public float hp = 5f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -44,6 +46,10 @@ public class EnemyMovement : MonoBehaviour
             if (Vector3.Distance(transform.position, target.position) < 0.1f)
             {
                 currentWaypointIndex++;
+                if (currentWaypointIndex >= waypoints.Length)
+                {
+                    currentWaypointIndex = 0;
+                }
 
             }
         }
@@ -52,6 +58,25 @@ public class EnemyMovement : MonoBehaviour
         {
             Quaternion toRotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, 10f * Time.deltaTime);
+        }
+
+        Die();
+    }
+
+    void Die()
+    {
+        if (hp <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public void Hit(float amount)
+    {
+        hp -= amount;
+        if (hp <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 }
